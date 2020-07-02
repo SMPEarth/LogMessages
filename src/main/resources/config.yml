@@ -1,0 +1,6 @@
+# MySQL not yet implemented, will be in future.
+use-mysql: false
+# This lets this plugin decide the default log messages.
+change-defaults: true
+join: '&8[&a+&8] {username}'
+leave: '&8[&c-&8] {username}'

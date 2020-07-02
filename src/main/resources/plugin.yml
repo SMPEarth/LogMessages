@@ -1,0 +1,35 @@
+name: LogMessages
+version: 0.0.0-SNAPSHOT
+author: Spanner
+main: com.spanner.logmessages.LogMessages
+
+commands:
+  joinmessage:
+    description: Switch your join message
+    aliases: [joinmsg,jmsg]
+    permission: logmessages.switch.join
+    usage: /joinmessage <none|message>
+  leavemessage:
+    description: Switch your leave message
+    aliases: [leavemsg,lmsg,quitmessage,quitmsg]
+    permission: logmessages.switch.leave
+    usage: /leavemessage <none|message>
+
+permissions:
+  logmessages.*:
+    descrpition: Gives access to all LogMessages commands (should be admin only!)
+    default: op
+    children:
+      logmessages.switch.join: true
+      logmessages.switch.leave: true
+  logmessages.switch.*:
+    description: Permits one to change any log message
+    children:
+      logmessages.switch.join: true
+      logmessages.switch.leave: true
+  logmessages.switch.join:
+    description: Permits one to switch their join message
+    default: true
+  logmessages.switch.leave:
+    description: Permits one to switch their leave message
+    default: true

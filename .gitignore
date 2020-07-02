@@ -11,7 +11,8 @@ local.properties
 .loadpath
 .recommenders
 .project
-/target
+target/
 */target
-/build
+build/
 */build
+.classpath
