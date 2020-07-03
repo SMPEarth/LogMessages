@@ -99,6 +99,33 @@ public class CommandHandler implements CommandExecutor {
 				}
 			}
 			
+			if (args[0].equalsIgnoreCase("set")) {
+				if (!sender.hasPermission("logmessages.set")) { sender.sendMessage(ChatColor.DARK_RED + "You don't have permission to use this command."); return true; }
+				if (args.length != 3) {
+					sender.sendMessage("Usage: /logmessage set <username> <message type>");
+					return true;
+				}
+				
+				OfflinePlayer mentioned = Bukkit.getOfflinePlayer(args[1]); // Ought to find a better way of doing this, probably.
+				if (!mentioned.hasPlayedBefore()) {
+					sender.sendMessage(ChatColor.RED + "This player has never played before, or does not exist.");
+					return true;
+				}
+				File playerdataFile = new File(plugin.getDataFolder() + "/playerdata/" + mentioned.getUniqueId());
+				List<String> lines;
+				try {
+					lines = Files.readAllLines(playerdataFile.toPath());
+					String fileString = String.join("", lines);
+					JsonObject json = (JsonObject) plugin.parser.parse(fileString);
+					json.addProperty("current", args[2]);
+					FileUtils.writeStringToFile(playerdataFile, json.toString(), "UTF-8");
+					sender.sendMessage("§2Updated user §a"+mentioned.getName()+"§2 to use message: §a"+args[2]);
+					return true;
+				} catch (IOException e) {
+					errorMessage(e,sender);
+				}
+			}
+			
 			if (!(sender instanceof Player)) { sender.sendMessage("You must be a player to use this command."); return true; }
 			if (!sender.hasPermission("logmessages.switch")) { sender.sendMessage(ChatColor.DARK_RED + "You don't have permission to use this command."); return true; }
 			Player p = (Player)sender;

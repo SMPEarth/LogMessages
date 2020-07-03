@@ -16,9 +16,13 @@ permissions:
     children:
       logmessages.switch: true
       logmessages.give: true
+      logmessages.set: true
   logmessages.switch:
     description: Permits a user to switch their log message
     default: true
   logmessages.give:
     description: Permits an admin to give a player a message type
+    default: op
+  logmessages.set:
+    description: Permits an admin to forcibly set another player's log message
     default: op
