@@ -39,11 +39,9 @@ public class EventListener implements Listener {
 		Player p = e.getPlayer();
 		String logMessage = getCurrentLogMessage(p);
 		if (logMessage == null) {
-			if (logMessage == null) {
-				if (plugin.config.getBoolean("use-default")) {
-					e.setJoinMessage(plugin.messages.getString(plugin.config.getString("default-message")));
-					return;
-				}
+			if (plugin.config.getBoolean("use-default")) {
+				e.setJoinMessage(plugin.messages.getString(plugin.config.getString("default-message")+".join").replace("&", "§").replace("{username}", p.getName()));
+				return;
 			}
 		}
 		String joinMessage = plugin.messages.getString((logMessage+ ".join"));
@@ -57,7 +55,7 @@ public class EventListener implements Listener {
 		String logMessage = getCurrentLogMessage(p);
 		if (logMessage == null) {
 			if (plugin.config.getBoolean("use-default")) {
-				e.setQuitMessage(plugin.messages.getString(plugin.config.getString("default-message")));
+				e.setQuitMessage(plugin.messages.getString(plugin.config.getString("default-message")+".leave").replace("&", "§").replace("{username}", p.getName()));
 				return;
 			}
 		}
