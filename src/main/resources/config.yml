@@ -4,3 +4,5 @@ use-mysql: false
 default-message: 'default'
 # Should the plugin change log messages for default players?
 use-default: true
+# Give players the default message on join?
+give-default-on-join: true

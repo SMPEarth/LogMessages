@@ -147,6 +147,8 @@ public class CommandHandler implements CommandExecutor {
 								return true;
 							}
 						}
+						p.sendMessage(ChatColor.RED + "You do not own this log message!");
+						return true;
 					} catch (IOException e) { errorMessage(e,sender); return true; }
 				}
 			} else {
