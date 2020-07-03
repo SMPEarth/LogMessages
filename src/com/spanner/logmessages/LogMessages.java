@@ -23,7 +23,7 @@ public class LogMessages extends JavaPlugin {
 		saveConfig();
 		
 		config = getConfig();
-		messages = YamlConfiguration.loadConfiguration(new File(getDataFolder() + "messages.yml"));
+		messages = YamlConfiguration.loadConfiguration(new File(getDataFolder() + "/messages.yml"));
 		logger = getLogger();
 		
 		getCommand("logmessage").setExecutor(new CommandHandler());

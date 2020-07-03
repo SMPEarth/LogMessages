@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -16,7 +15,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.commons.io.FileUtils;
 
 public class CommandHandler implements CommandExecutor {
 	LogMessages plugin = LogMessages.getPlugin(LogMessages.class);
@@ -96,6 +97,34 @@ public class CommandHandler implements CommandExecutor {
 						return true;
 					} catch (IOException e) { errorMessage(e,sender); return true; }
 				}
+			}
+			
+			if (!(sender instanceof Player)) { sender.sendMessage("You must be a player to use this command."); return true; }
+			if (!sender.hasPermission("logmessages.switch")) { sender.sendMessage(ChatColor.DARK_RED + "You don't have permission to use this command."); return true; }
+			Player p = (Player)sender;
+			if (plugin.messages.getKeys(false).contains(args[0])) {
+				File playerdataFile = new File(plugin.getDataFolder() + "/playerdata/" + p.getUniqueId());
+				JsonArray ownedMessages = new JsonArray();
+				if (playerdataFile.exists()) {
+					List<String> lines;
+					try {
+						lines = Files.readAllLines(playerdataFile.toPath());
+						String fileString = String.join("", lines);
+						JsonObject json = (JsonObject) plugin.parser.parse(fileString);
+						ownedMessages = (JsonArray) json.get("owned");
+						for (JsonElement jsonelement : ownedMessages) {
+							if (jsonelement.getAsString().equals(args[0])) {
+								json.addProperty("current", args[0]);
+								FileUtils.write(playerdataFile, json.toString(), "UTF-8");
+								p.sendMessage(ChatColor.GREEN + "Updated log message!");
+								return true;
+							}
+						}
+					} catch (IOException e) { errorMessage(e,sender); return true; }
+				}
+			} else {
+				sender.sendMessage(ChatColor.RED + "This log message does not exist. Ensure you have spelled and capitalized it correctly.");
+				return true;
 			}
 			
 		}

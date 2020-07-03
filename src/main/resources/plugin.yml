@@ -6,7 +6,7 @@ main: com.spanner.logmessages.LogMessages
 commands:
   logmessage:
     description: Switch your log message
-    aliases: [logmsg,lmsg.logmessages]
+    aliases: [logmsg,lmsg,logmessages]
     usage: /logmessage <message|givemessage>
 
 permissions:
