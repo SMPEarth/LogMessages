@@ -18,6 +18,12 @@
       <version>1.16.1-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <artifactId>commons-io</artifactId>
+      <groupId>commons-io</groupId>
+      <scope>compile</scope>
+      <version>2.5</version>
+    </dependency>
   </dependencies>
   
   <build>

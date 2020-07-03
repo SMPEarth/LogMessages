@@ -1,0 +1,6 @@
+default:
+  join: '&e{username} joined the game'
+  leave: '&e{username} left the game'
+example:
+  join: '&8[&a+&8] {username}'
+  leave: '&8[&c-&8] {username}'
